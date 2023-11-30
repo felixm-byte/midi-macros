@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://cascmxrufsc34"]
+
+[ext_resource type="Script" path="res://binding.gd" id="1_25f87"]
+
+[node name="Binding" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_25f87")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "MIDI Action:"
+
+[node name="MIDIActionName" type="Label" parent="."]
+layout_mode = 2
+
+[node name="Bind" type="Button" parent="."]
+layout_mode = 2
+text = "Bind Action"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Function Name:
+"
+
+[node name="FunName" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+placeholder_text = "function_name"
+max_length = 50
+expand_to_text_length = true
+
+[node name="DoubleInputToggle" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+text = "Ignore Double-Input"

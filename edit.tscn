@@ -1,0 +1,264 @@
+[gd_scene load_steps=15 format=3 uid="uid://bhef8lcvpyfpg"]
+
+[ext_resource type="Script" path="res://addons/menu_bar/menu_bar_node.gd" id="1_1r8tg"]
+[ext_resource type="Script" path="res://save_manager.gd" id="1_1unvn"]
+[ext_resource type="Script" path="res://binding_container.gd" id="1_edh3b"]
+[ext_resource type="Script" path="res://editor.gd" id="1_yw4k2"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_llrj5"]
+number_color = Color(0, 0, 1, 1)
+symbol_color = Color(1, 0.439216, 0, 1)
+function_color = Color(1, 1, 0, 1)
+member_variable_color = Color(0, 0.572549, 0, 1)
+keyword_colors = {
+"elif": Color(0.607843, 0, 0.254902, 1),
+"else": Color(0.607843, 0, 0.254902, 1),
+"end": Color(0.607843, 0, 0.254902, 1),
+"for": Color(0.627451, 0.12549, 0.941176, 1),
+"function": Color(0.607843, 0, 0.254902, 1),
+"global": Color(0.333333, 0.537255, 1, 1),
+"if": Color(0.607843, 0, 0.254902, 1),
+"in": Color(0.627451, 0.12549, 0.941176, 1),
+"local": Color(0.333333, 0.537255, 1, 1),
+"return": Color(0.607843, 0, 0.254902, 1),
+"then": Color(0.607843, 0, 0.254902, 1)
+}
+
+[sub_resource type="InputEventKey" id="InputEventKey_kjouv"]
+keycode = 81
+
+[sub_resource type="InputEventKey" id="InputEventKey_lsrly"]
+keycode = 87
+
+[sub_resource type="InputEventKey" id="InputEventKey_ytga7"]
+keycode = 82
+
+[sub_resource type="InputEventKey" id="InputEventKey_1gxba"]
+keycode = 84
+
+[sub_resource type="InputEventKey" id="InputEventKey_0i5e2"]
+keycode = 85
+
+[sub_resource type="InputEventKey" id="InputEventKey_jgojy"]
+keycode = 73
+
+[sub_resource type="InputEventKey" id="InputEventKey_4t1f6"]
+keycode = 79
+
+[sub_resource type="InputEventKey" id="InputEventKey_t3oo4"]
+keycode = 80
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_8dpdb"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yw4k2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "MagicMIDIMacros"
+horizontal_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+
+[node name="Code" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+script = ExtResource("1_1unvn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Code"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Code/HBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="FileName" type="LineEdit" parent="VBoxContainer/TabContainer/Code/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "a_unique_filename"
+max_length = 50
+expand_to_text_length = true
+
+[node name="Label2" type="Label" parent="VBoxContainer/TabContainer/Code/HBoxContainer"]
+layout_mode = 2
+text = ".luacro"
+
+[node name="Control" type="Control" parent="VBoxContainer/TabContainer/Code/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/TabContainer/Code/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/TabContainer/Code"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "print(\"Hello World\")"
+syntax_highlighter = SubResource("CodeHighlighter_llrj5")
+gutters_draw_line_numbers = true
+code_completion_enabled = true
+indent_automatic = true
+indent_automatic_prefixes = Array[String]([":", "{", "[", "(", ")", "n"])
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Code"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="BindingContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Code/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_edh3b")
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Code/ScrollContainer/BindingContainer"]
+layout_mode = 2
+text = "Bind Functions to Actions"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/TabContainer/Code/ScrollContainer/BindingContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "New Binding"
+
+[node name="Test" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Share" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Share"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Share your macro with the world!"
+horizontal_alignment = 1
+
+[node name="MenuBar" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("1_1r8tg")
+shortcut_dictionary = {
+"Buttons": {
+"Button1": SubResource("InputEventKey_kjouv"),
+"Button2": SubResource("InputEventKey_lsrly")
+},
+"Checkboxes": {
+"Check1": SubResource("InputEventKey_ytga7"),
+"Check2": SubResource("InputEventKey_1gxba")
+},
+"Radio": {
+"Radio1": SubResource("InputEventKey_0i5e2"),
+"Radio2": SubResource("InputEventKey_jgojy"),
+"Radio3": SubResource("InputEventKey_4t1f6"),
+"Radio4": SubResource("InputEventKey_t3oo4")
+}
+}
+metadata/_edit_layout_mode = 1
+
+[node name="MenuBarMenuButtons" type="HBoxContainer" parent="MenuBar"]
+layout_mode = 0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+
+[node name="File" type="MenuButton" parent="MenuBar/MenuBarMenuButtons"]
+layout_mode = 2
+text = "File"
+switch_on_hover = true
+item_count = 9
+popup/item_0/text = "New Macro"
+popup/item_0/id = 4471
+popup/item_1/text = "Open Macro"
+popup/item_1/id = 2
+popup/item_2/text = "Close Macro"
+popup/item_2/id = 3
+popup/item_3/text = ""
+popup/item_3/id = 4
+popup/item_3/separator = true
+popup/item_4/text = "Save"
+popup/item_4/id = 5
+popup/item_5/text = "Save As"
+popup/item_5/id = 6
+popup/item_6/text = "Quit Application"
+popup/item_6/id = 7
+popup/item_7/text = ""
+popup/item_7/id = 8
+popup/item_7/separator = true
+popup/item_8/text = "About"
+popup/item_8/id = 9
+
+[node name="Edit" type="MenuButton" parent="MenuBar/MenuBarMenuButtons"]
+layout_mode = 2
+text = "Edit"
+switch_on_hover = true
+item_count = 4
+popup/item_0/text = "Undo"
+popup/item_0/id = 0
+popup/item_1/text = "Redo"
+popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "Autosave"
+popup/item_3/checkable = 1
+popup/item_3/id = 3
+
+[node name="View" type="MenuButton" parent="MenuBar/MenuBarMenuButtons"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_8dpdb")
+text = "View"
+switch_on_hover = true
+item_count = 4
+popup/item_0/text = "Text"
+popup/item_0/id = 4
+popup/item_0/separator = true
+popup/item_1/text = "Large"
+popup/item_1/checkable = 1
+popup/item_1/id = 0
+popup/item_2/text = "UI"
+popup/item_2/id = 5
+popup/item_2/separator = true
+popup/item_3/text = "Contrast"
+popup/item_3/checkable = 1
+popup/item_3/id = 2
+
+[node name="Run" type="MenuButton" parent="MenuBar/MenuBarMenuButtons"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_8dpdb")
+text = "Run"
+switch_on_hover = true
+item_count = 2
+popup/item_0/text = "Run Script"
+popup/item_0/id = 4
+popup/item_1/text = "Run Functions"
+popup/item_1/checkable = 1
+popup/item_1/checked = true
+popup/item_1/id = 0
+
+[connection signal="text_changed" from="VBoxContainer/TabContainer/Code/CodeEdit" to="." method="something_changed"]
+[connection signal="pressed" from="VBoxContainer/TabContainer/Code/ScrollContainer/BindingContainer/Button" to="." method="something_changed"]
+[connection signal="item_pressed" from="MenuBar" to="." method="handle_menu"]
